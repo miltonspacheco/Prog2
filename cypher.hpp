@@ -11,27 +11,36 @@ class ConversionTable //tabela de conversão
 {
     private:
         vector< pair<char,char >> convTable;
+        int *m_A;
+        
 
     public: 
-        ConversionTable(int password); //Constructor
+        ConversionTable(); //Constructor
+        ~ConversionTable(); //Destructor
 
+        void FirstConversionTable(int password);
         void ShowTable();
-        
+        char TableInformation(char index);
+        int FirstTableIndex(int index);
+        int SecondTableIndex(int index);
+        size_t tam;
+     
 };
 
 class Cypher//encriptador e desincriptador 
 {
     private:
-        string encrypted;
-        string decrypted;
-        vector< pair<char,char >> *table;
-        
+       
+        ConversionTable *table;
 
     public:
-        Cypher(int password); //Constructor
-        Cypher(string input); 
+        Cypher(); //Constructor
+        ~Cypher(); //Desctructor
+        Cypher(int password); 
 
-        void ShowEncrypted();
+        string Encrypted(string input);
+        string Decrypted(string input);
+        void NewConversionTable(int password);
 };
 
 #endif
