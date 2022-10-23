@@ -26,7 +26,7 @@ class ConversionTable
      
 };
 
-class Cypher//encriptador e desincriptador 
+class Cypher//encriptador e desencriptador 
 {
     private:
        
