@@ -1,30 +1,21 @@
 #include "cypher.hpp"
 
-//Criação da primeira ConversioTable
 ConversionTable::ConversionTable()
 {
      m_A = NULL;
 }
 
-void ConversionTable::FirstConversionTable(int password)
+void ConversionTable::CreateConversionTable(int password)
 {  
-    if(password==22104547)
-    {
+    int pass = password/5;
         for(size_t i=0; i<256; i++)
         {
             pair<char,char> p;
             p.first = i;
-            p.second = p.first + 10;
+            p.second = p.first + pass;
             this->convTable.push_back(p);
         }
-         m_A = new int[1024];
-    }
-    else
-    {
-        cout << "Wrong password";
-    }
 }
- //---------------------------------------------------------------//
 
 Cypher::Cypher()
 {
@@ -34,15 +25,9 @@ Cypher::Cypher()
 Cypher::Cypher(int password)
 {
     table = new ConversionTable();
-    table->FirstConversionTable(password);
-
-    table->ShowTable();
+    table->CreateConversionTable(password);
 }
 
-Cypher::~Cypher()
-{
-    if(table) delete table;
-}
 
 char ConversionTable::TableInformation(char index)
 {
@@ -64,15 +49,15 @@ int ConversionTable::SecondTableIndex(int index)
     return x;
 }
 
-string Cypher::Encrypted(string input) //como vou acessar table?
+string Cypher::Encrypted(string input) 
 {
     string words = input;
     string result;
 
     for(size_t i=0; i<words.length(); i++)
     {
-        char chi = words.at(i); //input character
-        char cho = table->TableInformation(chi);  //output character
+        char chi = words.at(i); 
+        char cho = table->TableInformation(chi);  
         result += cho;
     }
     return result;
@@ -85,7 +70,7 @@ string Cypher::Decrypted(string input)
 
     for(size_t i=0; i<words.length(); i++)
     {
-        char chi = words.at(i);//input character
+        char chi = words.at(i);
 
         for(size_t j=0; j<table->tam; j++)
         {
@@ -100,20 +85,21 @@ string Cypher::Decrypted(string input)
     return result;
 }
 
-void NewConversionTable(int password)
+void Cypher::NewConversionTable(int password) 
 {
-
+    table = NULL;
+    table = new ConversionTable();
+    table->CreateConversionTable(password);
 }
 
 
-void ConversionTable::ShowTable()
+//Destrutores 
+ConversionTable::~ConversionTable()
 {
-    for(size_t i=0; i<this->convTable.size(); i++)
-    {
-        char orig = this->convTable.at(i).first;
-        char dest = this->convTable.at(i).second;
+    if(m_A) delete m_A;
+}
 
-        cout << " Orig: " << (char) orig << " - " << (int) orig << " -> " <<
-        " Destino: " << (char) dest << " - " << (int) dest << endl;
-    }
+Cypher::~Cypher()
+{
+    if(table) delete table;
 }

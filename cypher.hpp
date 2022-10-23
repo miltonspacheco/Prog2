@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class ConversionTable //tabela de conversão
+class ConversionTable 
 {
     private:
         vector< pair<char,char >> convTable;
@@ -15,11 +15,10 @@ class ConversionTable //tabela de conversão
         
 
     public: 
-        ConversionTable(); //Constructor
-        ~ConversionTable(); //Destructor
+        ConversionTable(); 
+        ~ConversionTable(); 
 
-        void FirstConversionTable(int password);
-        void ShowTable();
+        void CreateConversionTable(int password);
         char TableInformation(char index);
         int FirstTableIndex(int index);
         int SecondTableIndex(int index);
@@ -34,8 +33,8 @@ class Cypher//encriptador e desincriptador
         ConversionTable *table;
 
     public:
-        Cypher(); //Constructor
-        ~Cypher(); //Desctructor
+        Cypher(); 
+        ~Cypher(); 
         Cypher(int password); 
 
         string Encrypted(string input);
